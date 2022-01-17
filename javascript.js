@@ -4,6 +4,17 @@ function computerPlay() {
   switch(choice){
     
     case 0:
-      return "rock";
+      return "Rock";
+
+    case 1:
+      return "Paper";
+
+    case 2:
+      return "Scissors";
+
+    default:
+      return "You fucked up"
   }
 }
+
+console.log(computerPlay());
