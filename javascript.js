@@ -94,12 +94,17 @@ function play(e) {
   console.log(roundResult);
   if (roundResult === 'won') {
     playerScore++;
-    // Add message saying You won this round!
+    gameMessage.style.color = 'green';
+    gameMessage.innerText = 'You won this round! :)';
   } else if (roundResult === 'lost') {
     computerScore++;
+    gameMessage.style.color = 'red';
+    gameMessage.innerText = 'You lost this round! :(';
     // Add message saying you lost this round
   } else {
     //Add message saying you tied
+    gameMessage.style.color = 'tan';
+    gameMessage.innerText = 'You lost this round! :(';
   }
 
   updateScore();
