@@ -84,4 +84,4 @@ const playerSelection = "rock";
 
 const computerSelection = computerPlay();
 
-game();
+//game();
