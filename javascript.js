@@ -113,7 +113,7 @@ function startGame() {
   // Initialize new game
   playerScore = 0;
   computerScore = 0;
-  let gameMessage = document.createElement('p');
+  gameMessage = document.createElement('p');
   let gameMessageSibling = document.querySelector('#score-container');
   let body = document.querySelector('body');
   gameMessage.innerText = 'Let the games begin!';
@@ -121,8 +121,6 @@ function startGame() {
   gameMessage.id = 'gameMessage';
   
   body.insertBefore(gameMessage, gameMessageSibling);
-
-
 
   let choices = document.querySelectorAll('.flex-item');
 
@@ -134,6 +132,7 @@ function startGame() {
 
 }
 
+let gameMessage;
 let playerScore;
 let computerScore;
 
