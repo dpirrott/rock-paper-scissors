@@ -80,11 +80,26 @@ function game() {
 
 //game();
 
+
+
 function updateScore() {
   const playerDisplayedScore = document.querySelector('#playerScore');
   const computerDisplayedScore = document.querySelector('#computerScore');
   playerDisplayedScore.innerText = 'Player: ' + playerScore;
   computerDisplayedScore.innerText = 'Computer: ' + computerScore;
+
+  if (playerScore === 5 || computerScore === 5) {
+    if (playerScore > computerScore) {
+      gameMessage.setAttribute('style', 'font-size: 32px; color: green;');
+      gameMessage.innerText = "You won! :)";
+    } else {
+      gameMessage.setAttribute('style', 'font-size: 32px; color: red;');
+      gameMessage.innerText = "You lost :(";
+    }
+
+
+  }
+
 }
 
 function play(e) {
@@ -104,7 +119,7 @@ function play(e) {
   } else {
     //Add message saying you tied
     gameMessage.style.color = 'tan';
-    gameMessage.innerText = 'You lost this round! :(';
+    gameMessage.innerText = 'You tied this round! :(';
   }
 
   updateScore();
