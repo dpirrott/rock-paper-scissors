@@ -52,10 +52,7 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
 
-  let playerScore = 0;
-  let computerScore = 0;
-
-  for (let i = 0; i < 5; i++) {
+  while (playerScore < 5 && computerScore < 5) {
 
     let playerSelection = prompt("Type Rock, Paper or Scissors: ");
     let computerSelection = computerPlay();
@@ -83,23 +80,64 @@ function game() {
 
 //game();
 
-function playerChoice(e) {
-  console.log(e.srcElement.id);
+function updateScore() {
+  const playerDisplayedScore = document.querySelector('#playerScore');
+  const computerDisplayedScore = document.querySelector('#computerScore');
+  playerDisplayedScore.innerText = 'Player: ' + playerScore;
+  computerDisplayedScore.innerText = 'Computer: ' + computerScore;
+}
+
+function play(e) {
+  let playerChoice = e.srcElement.id;
+  let computerChoice = computerPlay();
+  let roundResult = playRound(playerChoice, computerChoice);
+  console.log(roundResult);
+  if (roundResult === 'won') {
+    playerScore++;
+    // Add message saying You won this round!
+  } else if (roundResult === 'lost') {
+    computerScore++;
+    // Add message saying you lost this round
+  } else {
+    //Add message saying you tied
+  }
+
+  updateScore();
+  //
+  //
 }
 
 function startGame() {
   console.log("let the games begin");
 
+  // Initialize new game
+  playerScore = 0;
+  computerScore = 0;
+  let gameMessage = document.createElement('p');
+  let gameMessageSibling = document.querySelector('#score-container');
+  let body = document.querySelector('body');
+  gameMessage.innerText = 'Let the games begin!';
+  gameMessage.style.color = 'white';
+  gameMessage.id = 'gameMessage';
+  
+  body.insertBefore(gameMessage, gameMessageSibling);
+
+
+
   let choices = document.querySelectorAll('.flex-item');
 
   choices.forEach(choice => {
-    choice.addEventListener('click', playerChoice);
+    choice.addEventListener('click', play);
   });
+
+
 
 }
 
+let playerScore;
+let computerScore;
+
 const test = document.querySelector('#start');
-console.log(test);
 
 test.addEventListener('click', startGame);
 
