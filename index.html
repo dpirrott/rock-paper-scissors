@@ -4,21 +4,40 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <script src="javascript.js"></script>
   <title>Rock Paper Scissors</title>
 </head>
 <body>
-  <h1>The Rock, Paper or Scissorhands</h1>
-  <div class="flex-box">
-    
-    <div class="flex-item">
 
+  <h1>The Rock, Paper or Scissor hands?</h1>
+
+  <div class="flex-box-game">
+    
+    <div class="flex-item" id="rock">
+      rock
     </div> 
-    
-    <div class="flex-item">
-
+      
+    <div class="flex-item" id="paper">
+      paper
     </div>
 
-  </div>> 
+    <div class="flex-item" id="scissors">
+      scissors
+    </div>
+
+  </div>
+
+  <div class="score-container">
+
+    <h3>Score</h3>
+    <div id="scores">
+      <h4 id="playerScore">Player: 0</h4>
+      <h4 id="computerScore">Computer: 0</h4>
+    </div>
+    <button>Reset</button>
+    
+  </div>
+
 </body>
 </html>
