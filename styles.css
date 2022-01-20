@@ -1,3 +1,49 @@
 body {
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+h1 {
+  text-align: center;
+}
+
+#flex-box-game {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.flex-item {
+  border: 2px solid black;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
+  background-color: blanchedalmond;
+}
+
+#score-container {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#scores {
+  display: flex;
+  width: 300px;
+}
+
+#playerScore {
+  border-top: 2px solid black;
+  border-right: 2px solid black;
+  padding: 10px;
+  margin-top: 0;
+  width: 50%;
+}
+
+#computerScore {
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  padding: 10px;
+  margin-top: 0;
+  width: 50%;
+}
