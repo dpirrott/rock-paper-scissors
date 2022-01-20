@@ -80,8 +80,26 @@ function game() {
 
 }
 
-const playerSelection = "rock";
-
-const computerSelection = computerPlay();
 
 //game();
+
+function playerChoice(e) {
+  console.log(e.srcElement.id);
+}
+
+function startGame() {
+  console.log("let the games begin");
+
+  let choices = document.querySelectorAll('.flex-item');
+
+  choices.forEach(choice => {
+    choice.addEventListener('click', playerChoice);
+  });
+
+}
+
+const test = document.querySelector('#start');
+console.log(test);
+
+test.addEventListener('click', startGame);
+
