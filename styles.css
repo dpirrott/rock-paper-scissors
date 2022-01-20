@@ -57,7 +57,12 @@ h1 {
 
 #gameMessage {
   text-align: center;
-  color: deepskyblue;
   margin-bottom: 0;
-  transition: 200ms;
+  animation-name: enter;
+  animation-duration: 1s;
+}
+
+@keyframes enter {
+  from {opacity: 0;}
+  to {opacity: 100;}
 }

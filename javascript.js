@@ -81,6 +81,18 @@ function game() {
 //game();
 
 
+function gameOver() {
+
+  choices.forEach(choice => {
+    choice.removeEventListener('click', play);
+  });
+
+  let endScore = document.createElement('h2');
+  endScore.innerText = playerScore + "-" + computerScore;
+
+
+}
+
 
 function updateScore() {
   const playerDisplayedScore = document.querySelector('#playerScore');
@@ -97,7 +109,7 @@ function updateScore() {
       gameMessage.innerText = "You lost :(";
     }
 
-
+    gameOver();
   }
 
 }
@@ -106,7 +118,14 @@ function play(e) {
   let playerChoice = e.srcElement.id;
   let computerChoice = computerPlay();
   let roundResult = playRound(playerChoice, computerChoice);
-  console.log(roundResult);
+  gameMessage.removeAttribute('id');
+  gameMessage.id = "gameMessage";
+
+  // Initiate transition
+  let blankNode = document.createElement('p');
+  body.replaceChild(blankNode, gameMessage);
+  body.replaceChild(gameMessage, blankNode);
+
   if (roundResult === 'won') {
     playerScore++;
     gameMessage.style.color = 'green';
@@ -135,28 +154,26 @@ function startGame() {
   computerScore = 0;
   gameMessage = document.createElement('p');
   let gameMessageSibling = document.querySelector('#score-container');
-  let body = document.querySelector('body');
-  gameMessage.innerText = 'Let the games begin!';
-  gameMessage.style.color = 'white';
   gameMessage.id = 'gameMessage';
-  
+  gameMessage.style.color = 'black';
+  gameMessage.innerText = 'Let the games begin!';
   body.insertBefore(gameMessage, gameMessageSibling);
-
-  let choices = document.querySelectorAll('.flex-item');
-
+  
   choices.forEach(choice => {
     choice.addEventListener('click', play);
   });
-
-
 
 }
 
 let gameMessage;
 let playerScore;
 let computerScore;
+let choices = document.querySelectorAll('.flex-item');
+let body = document.querySelector('body');
 
 const test = document.querySelector('#start');
 
-test.addEventListener('click', startGame);
+test.addEventListener('click', startGame, {
+  once: true
+});
 
