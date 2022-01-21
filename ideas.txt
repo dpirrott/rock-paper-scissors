@@ -1,0 +1,8 @@
+Ideas:
+
+- Have the rock paper scissors hidden till start is clicked
+As well as the score board, maybe a timer too??
+
+- Have the game options slide into place
+- the rocks face pop up
+

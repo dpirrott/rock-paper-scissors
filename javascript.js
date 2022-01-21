@@ -50,63 +50,39 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-function game() {
-
-  while (playerScore < 5 && computerScore < 5) {
-
-    let playerSelection = prompt("Type Rock, Paper or Scissors: ");
-    let computerSelection = computerPlay();
-
-    let result = playRound(playerSelection, computerSelection);
-    if (result === "won") {
-      playerScore++;
-    } else if (result === "lost") {
-      computerScore++;
-    }
-
-    console.log("You " + result + " this round.");
-  }
-
-  if (playerScore > computerScore) {
-    console.log("You are the winner! Score " + playerScore + " - " + computerScore);
-  } else if (playerScore === computerScore) {
-    console.log("You tied the computer! Score " + playerScore + " - " + computerScore);
-  } else {
-    console.log("The computer wins... Score " + playerScore + " - " + computerScore);
-  }
-
-}
-
-
-//game();
-
-
 function gameOver() {
 
   choices.forEach(choice => {
     choice.removeEventListener('click', play);
   });
 
-  let endScore = document.createElement('h2');
-  endScore.innerText = playerScore + "-" + computerScore;
+  
+  endScore.innerText = playerScore + " - " + computerScore;
+  endScore.id = "endScore";
 
+  let scoreContainer = document.querySelector('#score-container');
+  body.insertBefore(endScore, scoreContainer);
 
 }
 
 
 function updateScore() {
-  const playerDisplayedScore = document.querySelector('#playerScore');
-  const computerDisplayedScore = document.querySelector('#computerScore');
   playerDisplayedScore.innerText = 'Player: ' + playerScore;
   computerDisplayedScore.innerText = 'Computer: ' + computerScore;
 
   if (playerScore === 5 || computerScore === 5) {
+    // Initiate transition
+    messageContainer.replaceChild(blankNode, gameMessage);
+    messageContainer.replaceChild(gameMessage, blankNode);
+
     if (playerScore > computerScore) {
       gameMessage.setAttribute('style', 'font-size: 32px; color: green;');
       gameMessage.innerText = "You won! :)";
+      endScore.style.color = 'green';
     } else {
       gameMessage.setAttribute('style', 'font-size: 32px; color: red;');
       gameMessage.innerText = "You lost :(";
+      endScore.style.color = 'red';
     }
 
     gameOver();
@@ -122,9 +98,8 @@ function play(e) {
   gameMessage.id = "gameMessage";
 
   // Initiate transition
-  let blankNode = document.createElement('p');
-  body.replaceChild(blankNode, gameMessage);
-  body.replaceChild(gameMessage, blankNode);
+  messageContainer.replaceChild(blankNode, gameMessage);
+  messageContainer.replaceChild(gameMessage, blankNode);
 
   if (roundResult === 'won') {
     playerScore++;
@@ -134,9 +109,7 @@ function play(e) {
     computerScore++;
     gameMessage.style.color = 'red';
     gameMessage.innerText = 'You lost this round! :(';
-    // Add message saying you lost this round
   } else {
-    //Add message saying you tied
     gameMessage.style.color = 'tan';
     gameMessage.innerText = 'You tied this round! :(';
   }
@@ -149,15 +122,23 @@ function play(e) {
 function startGame() {
   console.log("let the games begin");
 
-  // Initialize new game
+  // Initialize new/reset game
   playerScore = 0;
   computerScore = 0;
-  gameMessage = document.createElement('p');
-  let gameMessageSibling = document.querySelector('#score-container');
+  endScore.innerText = '';
+  playerDisplayedScore.innerText = 'Player: ' + playerScore;
+  computerDisplayedScore.innerText = 'Computer: ' + computerScore;
+  
   gameMessage.id = 'gameMessage';
   gameMessage.style.color = 'black';
+  gameMessage.style.fontSize = '18px';
   gameMessage.innerText = 'Let the games begin!';
-  body.insertBefore(gameMessage, gameMessageSibling);
+
+  messageContainer.appendChild(gameMessage);
+  messageContainer.style.marginTop = "15px";
+
+  console.log("Offset X: " + gameMessage.offsetLeft);
+  console.log("Offset Y: " + gameMessage.offsetTop);
   
   choices.forEach(choice => {
     choice.addEventListener('click', play);
@@ -165,15 +146,24 @@ function startGame() {
 
 }
 
-let gameMessage;
+let gameMessage = document.createElement('p');
 let playerScore;
 let computerScore;
 let choices = document.querySelectorAll('.flex-item');
 let body = document.querySelector('body');
-
-const test = document.querySelector('#start');
+let blankNode = document.createElement('p');
+let messageContainer = document.querySelector('#messageContainer');
+let playerDisplayedScore = document.querySelector('#playerScore');
+let computerDisplayedScore = document.querySelector('#computerScore');
+let endScore = document.createElement('h2');
+let resetBtn = document.querySelector('#reset');
+let test = document.querySelector('#start');
 
 test.addEventListener('click', startGame, {
   once: true
 });
+
+resetBtn.addEventListener('click', startGame);
+
+
 
