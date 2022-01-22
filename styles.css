@@ -4,32 +4,160 @@
 }
 
 body {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  
+  font-family:Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, rgba(0,0,0,1) 5%, rgba(173,173,173,1) 80%);
+  background-repeat: no-repeat;
+  height: 98vh;
 }
 
 h1 {
+  margin-top: 25px;
   text-align: center;
+  color: white;
+  font-size: 40px;
 }
 
 #bait {
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 20px;
+  color: white;
+  font-size: 0px;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+  animation-duration: 1s;
+  animation-name: bait;
+}
+
+@keyframes bait {
+  from{
+    font-size: 1px;
+  }to{
+    font-size: 24px;
+  }
+}
+
+#flex-container{
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 20px 20px;
+  background-color: #d4d4d4;
+  border-radius: 20px;
+
+  animation-duration: 1s;
+  animation-name: flexOpen;
 }
 
 #flex-box-game {
   display: flex;
-  justify-content: center;
-  gap: 100px;
+  justify-content: space-around;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: nowrap;
+  margin: 0 auto;
 }
 
 .flex-item {
-  border: 2px solid black;
-  padding: 10px;
-  width: 100px;
-  text-align: center;
-  background-color: blanchedalmond;
+  height: 25vh;
+  max-height: 100%;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  display: flex;
+  justify-content: center;
+
+  animation-duration: 1s;
+  animation-name: startLayout;
 }
+
+@keyframes startLayout {
+  from{
+    width: 0;
+    height: 0;
+  }to{
+    width: 100%;
+    height: 25vh;
+  }
+}
+
+img {
+  height: 100%;
+  width: auto;
+  border-radius: 10px;
+}
+
+
+
+#rock {
+  animation-delay: 1s;
+  animation-duration: 500ms;
+  animation-name: rockEnter;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  opacity: 0;
+} 
+
+@keyframes rockEnter {
+  from {
+    transform: translateX(-400px);
+    opacity: 0;
+  } 50%{
+    opacity: 0.25;
+  } to {
+    opacity: 1;
+    max-height: 100%;
+  }
+} 
+
+
+#scissors {
+  background-color: #f4f4f4;
+  animation-duration: 500ms;
+  animation-name: scissorsEnter;
+  animation-timing-function: ease;
+  animation-delay: 1500ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  border-radius: 0;
+}
+
+@keyframes scissorsEnter {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  } 50%{
+    opacity: 0.25;
+  } to {
+    max-height: 100%;
+    opacity: 1;
+  }
+}
+
+#paper {
+  background-color: #f4f4f4;
+  animation-duration: 500ms;
+  animation-name: paperEnter;
+  animation-timing-function: ease;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes paperEnter {
+  from {
+    transform: translateY(400px);
+    opacity: 0;
+  } 50%{
+    opacity: 0.25;
+  } to {
+    max-height: 100%;
+    opacity: 1;
+  }
+}
+
+
 
 #score-container {
   justify-content: center;
@@ -41,25 +169,48 @@ h1 {
 
 #scores {
   display: flex;
-  width: 250px;
+  width: 400px;
+  justify-content: space-between;
+  animation-delay: 1s;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: scoreSeparate;
+  align-items: center;
+}
+
+ @keyframes scoreSeparate {
+  from{
+    width: 400px;
+    height: 52px;
+  }to{
+    width: 1200px;
+    height: 150px;
+  }
+} 
+
+h4 {
+  font-size: 24px;
 }
 
 #playerScore {
-  border-top: 2px solid black;
-  border-right: 2px solid black;
+  border: 2px solid black;
+  border-radius: 20px;
   padding: 10px;
   margin-top: 0;
-  width: 50%;
-  text-align: right;
+  width: 200px;
+  height: 52px;
+  text-align: center;
 }
 
 #computerScore {
-  border-top: 2px solid black;
-  border-left: 2px solid black;
+  border: 2px solid black;
+  border-radius: 20px;
   padding: 10px;
   margin-top: 0;
-  width: 50%;
-  text-align: left;
+  width: 200px;
+  height: 52px;
+  text-align: center;
 }
 
 #gameMessage {
@@ -74,16 +225,14 @@ h1 {
   from {
     opacity: 0;
     transform: translateX(-200px);
+    font-size: 1px;
   }
 
   to {
     transform: translateX(0);
     opacity: 100;
+    font-size: 18px;
   }
-}
-
-@keyframes win {
-
 }
 
 #messageContainer {
@@ -100,4 +249,12 @@ h1 {
 
 button {
   margin-top: 15px;
+  padding: 5px 30px;
+  font-size: 24px;
+  border-radius: 15px;
 }
+
+#reset {
+  margin-bottom: 50px;
+}
+

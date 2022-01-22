@@ -92,19 +92,25 @@ function updateScore() {
 
 function play(e) {
   let playerChoice = e.srcElement.id;
+  
   let computerChoice = computerPlay();
   let roundResult = playRound(playerChoice, computerChoice);
   gameMessage.removeAttribute('id');
   gameMessage.id = "gameMessage";
+
+  console.log(playerChoice);
+  playerChoice = playerChoice[0].toUpperCase() + playerChoice.slice(1, playerChoice.length);
 
   // Initiate transition
   messageContainer.replaceChild(blankNode, gameMessage);
   messageContainer.replaceChild(gameMessage, blankNode);
 
   if (roundResult === 'won') {
+
     playerScore++;
     gameMessage.style.color = 'green';
-    gameMessage.innerText = 'You won this round! :)';
+    gameMessage.innerText = 'You chose ' + playerChoice + ", computer chose " + computerChoice + ', You won this round! :)';
+
   } else if (roundResult === 'lost') {
     computerScore++;
     gameMessage.style.color = 'red';
@@ -117,6 +123,46 @@ function play(e) {
   updateScore();
   //
   //
+}
+
+function setupGameLayout() {
+
+  // Create all the container elements
+  let flexContainer = document.createElement('div');
+  let flexBoxGame = document.createElement('div');
+  let flexRock = document.createElement('div');
+  let flexPaper = document.createElement('div');
+  let flexScissors = document.createElement('div');
+
+  // Create actual images
+  let rockImg = document.createElement('img');
+  let paperImg = document.createElement('img');
+  let scissorsImg = document.createElement('img');
+
+  // Flex container setup
+  flexContainer.id = "flex-container";
+  body.insertBefore(flexContainer, messageContainer);
+
+  // Flex-box-game setup
+  flexBoxGame.id = "flex-box-game";
+  flexContainer.appendChild(flexBoxGame);
+
+  // Rock paper scissors setup
+  flexRock.classList = "flex-item";
+  flexPaper.classList = "flex-item";
+  flexScissors.classList = "flex-item";
+  flexBoxGame.appendChild(flexRock);
+  flexBoxGame.appendChild(flexPaper);
+  flexBoxGame.appendChild(flexScissors);
+  rockImg.id = "rock";
+  rockImg.src = "images/the_rock.jpg";
+  paperImg.id = "paper";
+  paperImg.src = "images/paper.jpg";
+  scissorsImg.id = "scissors";
+  scissorsImg.src = "images/scissors.png"
+  flexRock.appendChild(rockImg);
+  flexPaper.appendChild(paperImg);
+  flexScissors.appendChild(scissorsImg);
 }
 
 function startGame() {
@@ -136,6 +182,8 @@ function startGame() {
 
   messageContainer.appendChild(gameMessage);
   messageContainer.style.marginTop = "15px";
+
+  setupGameLayout();
 
   console.log("Offset X: " + gameMessage.offsetLeft);
   console.log("Offset Y: " + gameMessage.offsetTop);
