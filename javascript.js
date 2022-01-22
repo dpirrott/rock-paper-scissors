@@ -60,7 +60,6 @@ function gameOver() {
   endScore.innerText = playerScore + " - " + computerScore;
   endScore.id = "endScore";
 
-  let scoreContainer = document.querySelector('#score-container');
   body.insertBefore(endScore, scoreContainer);
 
 }
@@ -127,17 +126,25 @@ function play(e) {
 
 function setupGameLayout() {
 
-  // Create all the container elements
+  // Create all the container elements for game interface
   let flexContainer = document.createElement('div');
   let flexBoxGame = document.createElement('div');
   let flexRock = document.createElement('div');
   let flexPaper = document.createElement('div');
   let flexScissors = document.createElement('div');
 
-  // Create actual images
+  // Create actual images elements
   let rockImg = document.createElement('img');
   let paperImg = document.createElement('img');
   let scissorsImg = document.createElement('img');
+
+  // Create scoreboard
+  scoreContainer = document.createElement('div');
+  let scoreTitle = document.createElement('h3');
+  let scores = document.createElement('div');
+  playerDisplayedScore = document.createElement('h4');
+  computerDisplayedScore = document.createElement('h4');
+  resetBtn = document.createElement('button');
 
   // Flex container setup
   flexContainer.id = "flex-container";
@@ -163,30 +170,47 @@ function setupGameLayout() {
   flexRock.appendChild(rockImg);
   flexPaper.appendChild(paperImg);
   flexScissors.appendChild(scissorsImg);
+
+  // Scoreboard setup
+  scoreContainer.id = "score-container";
+  body.appendChild(scoreContainer);
+  scoreTitle.id = "score-title";
+  scoreTitle.innerText = "Score";
+  scoreContainer.appendChild(scoreTitle);
+  scores.id = "scores";
+  scoreContainer.appendChild(scores);
+  resetBtn.id = 'reset';
+  resetBtn.innerText = "Reset";
+  scoreContainer.appendChild(resetBtn);
+  playerDisplayedScore.id = "playerScore";
+  playerDisplayedScore.innerText = "Player: 0";
+  computerDisplayedScore.id = "computerScore";
+  computerDisplayedScore.innerText = "Computer: 0";
+  scores.appendChild(playerDisplayedScore);
+  scores.appendChild(computerDisplayedScore);
+
 }
 
 function startGame() {
   console.log("let the games begin");
 
+  setupGameLayout();
+  
   // Initialize new/reset game
   playerScore = 0;
   computerScore = 0;
   endScore.innerText = '';
-  playerDisplayedScore.innerText = 'Player: ' + playerScore;
-  computerDisplayedScore.innerText = 'Computer: ' + computerScore;
+  choices = document.querySelectorAll('.flex-item');
   
   gameMessage.id = 'gameMessage';
   gameMessage.style.color = 'black';
-  gameMessage.style.fontSize = '18px';
+  gameMessage.style.fontSize = '24px';
   gameMessage.innerText = 'Let the games begin!';
 
   messageContainer.appendChild(gameMessage);
   messageContainer.style.marginTop = "15px";
 
-  setupGameLayout();
-
-  console.log("Offset X: " + gameMessage.offsetLeft);
-  console.log("Offset Y: " + gameMessage.offsetTop);
+  resetBtn.addEventListener('click', startGame);
   
   choices.forEach(choice => {
     choice.addEventListener('click', play);
@@ -197,21 +221,24 @@ function startGame() {
 let gameMessage = document.createElement('p');
 let playerScore;
 let computerScore;
-let choices = document.querySelectorAll('.flex-item');
+let choices;
 let body = document.querySelector('body');
 let blankNode = document.createElement('p');
 let messageContainer = document.querySelector('#messageContainer');
-let playerDisplayedScore = document.querySelector('#playerScore');
-let computerDisplayedScore = document.querySelector('#computerScore');
+let playerDisplayedScore;
+let computerDisplayedScore;
+let scoreContainer;
+let resetBtn;
 let endScore = document.createElement('h2');
-let resetBtn = document.querySelector('#reset');
 let test = document.querySelector('#start');
 
 test.addEventListener('click', startGame, {
   once: true
 });
 
-resetBtn.addEventListener('click', startGame);
+
+
+
 
 
 
