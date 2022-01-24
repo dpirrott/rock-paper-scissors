@@ -7,34 +7,135 @@ body {
   font-family:Arial, Helvetica, sans-serif;
   background: linear-gradient(180deg, rgba(0,0,0,1) 5%, rgba(173,173,173,1) 80%);
   background-repeat: no-repeat;
-  height: 98vh;
+  height: 100vh;
 }
 
 h1 {
-  margin-top: 25px;
   text-align: center;
+  line-height: 70px;
   color: white;
+}
+
+.epicStory {
+  font-family: 'Aclonica';
+  margin: 50px auto;
+  margin-bottom: 100px;
+  width: fit-content;
+  padding: 5px 20px;
+  border-radius: 20px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #f4f4f4;
+  text-align: center;
   font-size: 40px;
+  animation-name: story; 
+  animation-iteration-count: 5;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+ @keyframes story {
+  0%{
+    opacity: 0;
+  }40%{
+    opacity: 1;
+  }100%{
+    opacity: 0;    
+  }
+}
+
+@keyframes storyFinish {
+  0%{
+    opacity: 0;
+  }100%{
+    opacity: 1;    
+  }
+}
+
+@keyframes storyStartAgain {
+  0%{
+    opacity: 1;
+  }100%{
+    opacity: 0;    
+  }
+}
+
+@keyframes storyHide {
+  0%{
+    opacity: 1;
+
+  }100%{
+    opacity: 1;
+    margin-top: 25px;
+    margin-bottom: 0;    
+  }
 }
 
 #bait {
   text-align: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  color: white;
-  font-size: 0px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+#baitPhrase {
+  font-size: 36px;
+  color: white;  
   animation-fill-mode: forwards;
-  animation-delay: 1s;
-  animation-duration: 1s;
+  animation-delay: 100ms;
+  animation-duration: 100ms;
   animation-name: bait;
+  opacity: 0;
 }
 
 @keyframes bait {
   from{
     font-size: 1px;
+    opacity: 0;
   }to{
-    font-size: 24px;
+    font-size: 36px;
+    opacity: 1;
   }
+}
+
+@keyframes baitBounceBack {
+  from{
+    opacity: 1;
+  }to{
+    margin-top: 20px;
+    opacity: 0;
+  }
+}
+
+#start {
+  animation-fill-mode: forwards;
+  animation-delay: 100ms;
+  animation-duration: 100ms;
+  animation-name: startBtnFade;
+  animation-timing-function: ease-in;
+  opacity: 0;
+}
+
+@keyframes startBtnFade {
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
+  }
+}
+
+@keyframes startBtnFadeOut {
+  from{
+    opacity: 1;
+    margin-top: 30px;
+    padding: 5px 30px;
+    font-size: 24px;
+  }to{
+    opacity: 0;
+    font-size: 1px;
+    margin: 0;
+    padding: 0;
+  }
+  
 }
 
 #flex-container{
@@ -58,6 +159,7 @@ h1 {
 }
 
 .flex-item {
+  z-index: 1;
   height: 25vh;
   max-height: 100%;
   width: 100%;
@@ -89,14 +191,74 @@ img {
 
 
 
-#rock {
+.rock {
+  position: relative;
+  z-index: 2;
+  top: 0;
+  left: 0;
   animation-delay: 1s;
   animation-duration: 750ms;
   animation-name: rockEnter;
   animation-timing-function: ease;
   animation-fill-mode: forwards;
   opacity: 0;
-} 
+}
+
+.rockPlay {
+  position: absolute;
+  animation-duration: 750ms;
+  animation-name: rockPlayer;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  opacity: 0;
+}
+
+@keyframes rockPlayer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translateY(35vh);
+    height: 22vh;
+  }
+}
+
+@keyframes rockComputer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(23.8vw, 35vh);
+    height: 22vh;
+  }
+}
+
+.shake {
+  animation-delay: 0s;
+  animation-duration: 250ms;
+  animation-name: rockShake;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+.freeze {
+  opacity: 1;
+}
+
+@keyframes rockShake {
+  0%{
+    transform: rotate(0deg);
+    opacity: 1;
+  }25%{
+    transform: rotate(-5deg);
+  }75%{
+    transform: rotate(5deg);
+  }100%{
+    transform: rotate(0deg);
+  }
+}
 
 @keyframes rockEnter {
   from {
@@ -111,7 +273,7 @@ img {
 } 
 
 
-#scissors {
+.scissors {
   background-color: #f4f4f4;
   animation-duration: 750ms;
   animation-name: scissorsEnter;
@@ -134,7 +296,37 @@ img {
   }
 }
 
-#paper {
+.scissorsPlay {
+  position: absolute;
+  animation-duration: 750ms;
+  animation-name: scissorsPlayer;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes scissorsPlayer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(-23.8vw, 35vh);
+    height: 22vh;
+  }
+}
+
+@keyframes scissorsComputer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translateY(35vh);
+    height: 22vh;
+  }
+}
+
+
+.paper {
   background-color: #f4f4f4;
   animation-duration: 750ms;
   animation-name: paperEnter;
@@ -153,6 +345,35 @@ img {
   } to {
     max-height: 100%;
     opacity: 1;
+  }
+}
+
+.paperPlay {
+  position: absolute;
+  animation-duration: 750ms;
+  animation-name: paperPlayer;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes paperPlayer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(-12.9vw, 35vh);
+    height: 22vh;
+  }
+}
+
+@keyframes paperComputer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(11.9vw, 35vh);
+    height: 22vh;
   }
 }
 
@@ -235,24 +456,29 @@ h4 {
 
 #gameMessage {
   text-align: center;
+  line-height: 36px;
+  color: rgb(173, 0, 0);
+  font-weight: 900;
   margin-bottom: 0;
   animation-name: enter;
-  animation-delay: 5.5s;
+  animation-delay: 750ms;
   animation-duration: 500ms;
+  animation-fill-mode: forwards;
   display: inline-block;
+  opacity: 0;
 }
 
 @keyframes enter {
   from {
     opacity: 0;
-    transform: translateX(-200px);
     font-size: 1px;
+    transform: translateY(200px);
   }
 
   to {
-    transform: translateX(0);
-    opacity: 100;
-    font-size: 18px;
+    opacity: 1;
+    font-size: 36px;
+    transform: translateY(200px);
   }
 }
 
@@ -269,13 +495,13 @@ h4 {
 }
 
 button {
-  margin-top: 15px;
+  margin-top: 30px;
   padding: 5px 30px;
   font-size: 24px;
   border-radius: 15px;
 }
 
 #reset {
-  margin-bottom: 50px;
+
 }
 
