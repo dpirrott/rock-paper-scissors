@@ -50,38 +50,74 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-function gameOver() {
+function resetGame() {
+  //Reset scores (displayed and background)
+  playerScore = 0;
+  playerDisplayedScore.innerText = "Player: " + playerScore;
+  computerScore = 0;
+  computerDisplayedScore.innerText = "Computer: " + computerScore;
+  
+  //Remove the player and computer small images from play area
+  if (playerSelect.className !== "") playerSelect.remove();
+  if (computerSelect.className !== "") computerSelect.remove();
 
-  choices.forEach(choice => {
-    choice.removeEventListener('click', play);
-  });
+  //Remove gameMessage, well reset it to Fight!
+  gameMessage.remove();
+  gameMessage.removeAttribute('style', 'animation-delay: 250ms; color: black; text-decoration: underline; transform: translateY(-240px);');
+  gameMessage.id = 'gameMessage';
+  gameMessage.style.animationDelay = "1s";
+  gameMessage.innerText = 'Fight!';
+  messageContainer.appendChild(gameMessage);
+  console.log(gameMessage.style.animationDelay);
 
+  //Remove roundWinner
+  roundWinner.remove();
+
+  //Restart event listeners
+  eventListenerSetup();
 }
 
+function gameOver() {
+  choices.forEach(choice => {
+    choice.removeEventListener('click', play);
+    choice.removeEventListener('mouseover', shake);
+    if (choice.childNodes[0].className === "shake") choice.childNodes[0].className = "freeze";
+  });
+}
 
 function updateScore() {
   playerDisplayedScore.innerText = 'Player: ' + playerScore;
   computerDisplayedScore.innerText = 'Computer: ' + computerScore;
 
-  if (playerScore === 5 || computerScore === 5) {
+  if (playerScore >= 5 || computerScore >= 5) {
+    gameOver();
+    
     // Initiate transition
     messageContainer.replaceChild(blankNode, gameMessage);
     messageContainer.replaceChild(gameMessage, blankNode);
 
     roundWinner.remove();
+    gameMessage.style.transform = "translateY(-240px)";
     if (playerScore > computerScore) {
-      gameMessage.setAttribute('style', 'font-size: 32px; color: green; animation-delay: 1s;');
+      gameMessage.setAttribute('style', 'font-size: 32px; color: green; background-color: white; animation-delay: 1s; transform: translateY(-240px); display: inline-block; border-radius: 10px;');
       gameMessage.innerText = "You won! :)\n" + playerScore + " - " + computerScore;
+      rockTheme.play();
     } else {
-      gameMessage.setAttribute('style', 'font-size: 32px; color: red;');
+      gameMessage.removeAttribute('style')
+      gameMessage.setAttribute('style', 'font-size: 32px; color: red; background-color: white; animation-delay: 1s; transform: translateY(-240px); border-radius: 10px; padding: 5px 10px; display: inline-block;');
       gameMessage.innerText = "You lost :(\n" + playerScore + " - " + computerScore;
+      rockLose.play();
     }
-    gameOver();
+    
   }
 }
 
 function play(e) {
-  setTimeout(() => {
+    //Prevent double triggers of event listeners by disabling them temporarily
+    choices.forEach(choice => {
+      choice.removeEventListener('click', play);
+    });
+
     let playerChoice = e.srcElement.id;
     console.log(playerSelect.className);
     if (playerSelect.className !== "") playerSelect.remove();
@@ -92,12 +128,15 @@ function play(e) {
     playerSelect.style.left = coordX
     //Determine which image will be duplicated to player side
     if (playerChoice === "rock") {
+      rockSound.play();
       playerSelect.src = rockImg.src;
       playerSelect.className = "rockPlay";    
     } else if (playerChoice === "scissors") {
+      scissorsSound.play();
       playerSelect.src = "images/scissors (copy).png";
       playerSelect.className = "scissorsPlay";
     }else{
+      paperSound.play();
       playerSelect.src = paperImg.src;
       playerSelect.className = "paperPlay";
     }
@@ -129,7 +168,7 @@ function play(e) {
     let roundResult = playRound(playerChoice, computerChoice);
     gameMessage.removeAttribute('id');
     gameMessage.id = "gameMessage";
-    gameMessage.style.animationDelay = "250ms";
+    gameMessage.style.animationDelay = "0s";
     gameMessage.style.color = 'black'
     gameMessage.style.textDecoration = "underline";
     gameMessage.innerText = 'Round winner';
@@ -159,7 +198,13 @@ function play(e) {
     messageContainer.appendChild(roundWinner);
     
     updateScore();
-  }, 200);
+    
+    //Reset the event listeners after transition completes
+    setTimeout(() => {
+      choices.forEach(choice => {
+        choice.addEventListener('click', play);
+      });
+    }, 500);
   
 }
 
@@ -183,7 +228,7 @@ function eventListenerSetup() {
     choice.addEventListener('mouseover', shake);
     choice.addEventListener('mouseleave', freeze);
   });
-  resetBtn.addEventListener('click', startGame);
+  resetBtn.addEventListener('click', resetGame);
 }
 
 function setupGameLayout() {
@@ -328,12 +373,12 @@ function startGame() {
               setTimeout(() => {
                 baitPhrase.remove();
               }, 3000); // set to 3000
-            }, 5000) //set to 5000
+            }, 5000)//set to 5000
           }, 3000)// set 3000
-        }, 2000) // set 2000
+        }, 2000)// set 2000
       }, 2000)// set to 2000
-    }, 700) // set to 700
-  }, 700); // set to 700
+    }, 700)// set to 700
+  }, 700);// set to 700
   
   
   // Initialize new/reset game
@@ -376,6 +421,10 @@ let playerSelect = document.createElement('img');
 let computerSelect = document.createElement('img');
 let roundWinner = document.createElement('p');
 const rockTheme = new Audio('sounds/theRockTheme.mp3');
+const paperSound = new Audio('sounds/paperSound.mp3');
+const scissorsSound = new Audio('sounds/scissorsSound.mp3');
+const rockSound = new Audio('sounds/rockSound.mp3');
+const rockLose = new Audio('sounds/rockLose.mp3');
 
 setTimeout(() => {
   epicStory.style.animationDelay = 0;

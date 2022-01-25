@@ -228,7 +228,7 @@ img {
 
 .rockPlay {
   position: absolute;
-  animation-duration: 750ms;
+  animation-duration: 500ms;
   animation-name: rockPlayer;
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
@@ -319,7 +319,7 @@ img {
 
 .scissorsPlay {
   position: absolute;
-  animation-duration: 750ms;
+  animation-duration: 500ms;
   animation-name: scissorsPlayer;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
@@ -371,7 +371,7 @@ img {
 
 .paperPlay {
   position: absolute;
-  animation-duration: 750ms;
+  animation-duration: 500ms;
   animation-name: paperPlayer;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
@@ -489,8 +489,8 @@ h4 {
 #roundWinner {
   margin-bottom: 0;
   animation-name: roundWinnerEnter;
-  animation-delay: 750ms;
-  animation-duration: 750ms;
+  animation-delay: 250ms;
+  animation-duration: 500ms;
   animation-fill-mode: forwards;
   transform: translateY(-230px);
   opacity: 0;
@@ -559,5 +559,26 @@ button {
 
 #reset {
 
+}
+
+footer {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  background-color: #1f1d16;
+}
+
+footer p {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 600;
+  margin-left: auto;
+  margin-right: auto;
+  padding:5px 10px;
+  border-radius: 5px;
+  background-color: rgb(92, 92, 92);
 }
 
