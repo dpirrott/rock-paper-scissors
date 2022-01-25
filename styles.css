@@ -1,0 +1,584 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family:Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, rgba(0,0,0,1) 5%, rgba(173,173,173,1) 80%);
+  background-repeat: no-repeat;
+  height: 105vh;
+}
+
+h1 {
+  text-align: center;
+  line-height: 70px;
+  color: white;
+}
+
+.epicStory {
+  font-family: 'Aclonica';
+  margin: 50px auto;
+  margin-bottom: 100px;
+  width: fit-content;
+  padding: 5px 20px;
+  border-radius: 20px;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #f4f4f4;
+  text-align: center;
+  font-size: 40px;
+  animation-name: story; 
+  animation-iteration-count: 5;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+ @keyframes story {
+  0%{
+    opacity: 0;
+  }40%{
+    opacity: 1;
+  }100%{
+    opacity: 0;    
+  }
+}
+
+@keyframes storyFinish {
+  0%{
+    opacity: 0;
+  }100%{
+    opacity: 1;    
+  }
+}
+
+@keyframes storyStartAgain {
+  0%{
+    opacity: 1;
+  }100%{
+    opacity: 0;    
+  }
+}
+
+@keyframes storyHide {
+  0%{
+    opacity: 1;
+
+  }100%{
+    opacity: 1;
+    margin-top: 25px;
+    margin-bottom: 0;    
+  }
+}
+
+#bait {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+@keyframes baitFadeOut {
+  from {
+    opacity: 1;
+  } to {
+    margin-top: 0;
+    margin-bottom: 0;
+    opacity: 0;
+  }
+}
+
+#baitPhrase {
+  font-size: 36px;
+  color: white;  
+  animation-fill-mode: forwards;
+  animation-duration: 700ms;
+  animation-name: bait;
+  opacity: 0;
+}
+
+@keyframes bait {
+  from{
+    font-size: 1px;
+    opacity: 0;
+  }to{
+    font-size: 36px;
+    opacity: 1;
+  }
+}
+
+@keyframes baitBounceBack {
+  from{
+    opacity: 1;
+  }to{
+    margin-top: 20px;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from{
+    opacity: 1;
+    font-size: 36px;
+    line-height: 42px;
+  }to{
+    opacity: 0;
+    font-size: 1px;
+    line-height: 0px;
+    margin-top: 0;
+  }
+}
+
+#start {
+  animation-fill-mode: forwards;
+
+  animation-duration: 700ms;
+  animation-name: startBtnFade;
+  animation-timing-function: ease-in;
+  opacity: 0;
+}
+
+@keyframes startBtnFade {
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
+  }
+}
+
+@keyframes startBtnFadeOut {
+  from{
+    opacity: 1;
+    margin-top: 30px;
+    padding: 5px 30px;
+    font-size: 24px;
+  }to{
+    opacity: 0;
+    font-size: 1px;
+    margin: 0;
+    padding: 0;
+  }
+  
+}
+
+#flex-container{
+  display: flex;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 20px 20px;
+  background-color: #d4d4d4;
+  border-radius: 20px;
+}
+
+#flex-box-game {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+}
+
+.flex-item {
+  z-index: 1;
+  height: 25vh;
+  max-height: 100%;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  display: flex;
+  justify-content: center;
+
+  animation-duration: 1s;
+  animation-name: startLayout;
+}
+
+@keyframes startLayout {
+  from{
+    width: 0;
+    height: 0;
+  }to{
+    width: 100%;
+    height: 25vh;
+  }
+}
+
+img {
+  height: 100%;
+  width: auto;
+  border-radius: 10px;
+}
+
+.rock {
+  position: relative;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  animation-delay: 1s;
+  animation-duration: 750ms;
+  animation-name: rockEnter;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.rockPlay {
+  position: absolute;
+  animation-duration: 500ms;
+  animation-name: rockPlayer;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  opacity: 0;
+}
+
+@keyframes rockPlayer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(-3vw, 35vh);
+    height: 22vh;
+  }
+}
+
+@keyframes rockComputer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(27.8vw, 35vh);
+    height: 22vh;
+  }
+}
+
+.shake {
+  animation-delay: 0s;
+  animation-duration: 250ms;
+  animation-name: rockShake;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+.freeze {
+  opacity: 1;
+}
+
+@keyframes rockShake {
+  0%{
+    transform: rotate(0deg);
+    opacity: 1;
+  }25%{
+    transform: rotate(-5deg);
+  }75%{
+    transform: rotate(5deg);
+  }100%{
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes rockEnter {
+  from {
+    transform: translateX(-400px);
+    opacity: 0;
+  } 50%{
+    opacity: 0.25;
+  } to {
+    opacity: 1;
+    max-height: 100%;
+  }
+} 
+
+.scissors {
+  background-color: #f4f4f4;
+  animation-duration: 750ms;
+  animation-name: scissorsEnter;
+  animation-timing-function: ease;
+  animation-delay: 1750ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  border-radius: 0;
+}
+
+@keyframes scissorsEnter {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  } 50%{
+    opacity: 0.25;
+  } to {
+    max-height: 100%;
+    opacity: 1;
+  }
+}
+
+.scissorsPlay {
+  position: absolute;
+  animation-duration: 500ms;
+  animation-name: scissorsPlayer;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes scissorsPlayer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(-27.8vw, 35vh);
+    height: 22vh;
+  }
+}
+
+@keyframes scissorsComputer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(3vw, 35vh);
+    height: 22vh;
+  }
+}
+
+
+.paper {
+  background-color: #f4f4f4;
+  animation-duration: 750ms;
+  animation-name: paperEnter;
+  animation-timing-function: ease;
+  animation-delay: 2500ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes paperEnter {
+  from {
+    transform: translateY(400px);
+    opacity: 0;
+  } 50%{
+    opacity: 0.25;
+  } to {
+    max-height: 100%;
+    opacity: 1;
+  }
+}
+
+.paperPlay {
+  position: absolute;
+  animation-duration: 500ms;
+  animation-name: paperPlayer;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+@keyframes paperPlayer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(-15.9vw, 35vh);
+    height: 22vh;
+  }
+}
+
+@keyframes paperComputer {
+  from{
+    height: 25vh;
+  }to{
+    opacity: 1;
+    transform: translate(14.9vw, 35vh);
+    height: 22vh;
+  }
+}
+
+#score-container {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  opacity: 0;
+  animation-delay: 3250ms;
+  animation-duration: 750ms;
+  animation-name: scoreAppear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes scoreAppear {
+  from{
+    opacity: 0;
+  }to{
+    opacity: 1;
+  }
+  
+}
+
+#score-title {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+#scores {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  animation-delay: 4s;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: scoreSeparate;
+  align-items: center;
+}
+
+ @keyframes scoreSeparate {
+  from{
+    width: 400px;
+    height: 52px;
+  }to{
+    width: 1200px;
+    height: 200px;
+  }
+} 
+
+h4 {
+  font-size: 24px;
+}
+
+#playerScore {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 0;
+  width: 200px;
+  height: 52px;
+  text-align: center;
+}
+
+#computerScore {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 0;
+  width: 200px;
+  height: 52px;
+  text-align: center;
+}
+
+#gameMessage {
+  text-align: center;
+
+  font-size: 1px;
+  color: rgb(173, 0, 0);
+  font-weight: 900;
+  margin-bottom: 0;
+  animation-name: enter;
+  animation-delay: 3s;
+  animation-duration: 750ms;
+  animation-fill-mode: forwards;
+  transform: translateY(-270px);
+  opacity: 0;
+}
+
+#roundWinner {
+  margin-bottom: 0;
+  animation-name: roundWinnerEnter;
+  animation-delay: 250ms;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+  transform: translateY(-230px);
+  opacity: 0;
+  display: inline-block;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+#messageContainer {
+  text-align: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    font-size: 1px;
+  }to{
+    opacity: 1;
+    font-size: 44px;
+  }
+}
+
+@keyframes roundWinnerEnter {
+  from {
+    opacity: 0;
+    font-size: 1px;
+    
+  }to{
+    opacity: 1;
+    font-size: 40px;
+    
+  }
+}
+
+@keyframes gameMessageEnd {
+  from {
+    opacity: 0;
+    font-size: 1px;
+  }to{
+    opacity: 1;
+    font-size: 44px;
+  }
+}
+
+#endScore {
+  text-align: center;
+  font-size: 44px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  animation-name: enter;
+  animation-delay: 1s;
+  animation-duration: 750ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+button {
+  margin-top: 30px;
+  padding: 5px 30px;
+  font-size: 24px;
+  border-radius: 15px;
+}
+
+#reset {
+
+}
+
+footer {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  background-color: #1f1d16;
+}
+
+footer p {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 600;
+  margin-left: auto;
+  margin-right: auto;
+  padding:5px 10px;
+  border-radius: 5px;
+  background-color: rgb(92, 92, 92);
+}
+
