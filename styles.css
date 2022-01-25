@@ -443,7 +443,7 @@ img {
     height: 52px;
   }to{
     width: 1200px;
-    height: 100px;
+    height: 200px;
   }
 } 
 
@@ -473,52 +473,68 @@ h4 {
 
 #gameMessage {
   text-align: center;
-  line-height: 0;
+
   font-size: 1px;
   color: rgb(173, 0, 0);
   font-weight: 900;
   margin-bottom: 0;
   animation-name: enter;
-  animation-delay: 5s;
-  animation-duration: 1s;
+  animation-delay: 3s;
+  animation-duration: 750ms;
   animation-fill-mode: forwards;
-  transform: translateY(130px);
+  transform: translateY(-270px);
   opacity: 0;
 }
 
 #roundWinner {
-  font-size: 40px;
-  line-height: 50px;
-  margin-top: 10px;
   margin-bottom: 0;
-  animation-name: enter;
+  animation-name: roundWinnerEnter;
   animation-delay: 750ms;
-  animation-duration: 500ms;
+  animation-duration: 750ms;
   animation-fill-mode: forwards;
+  transform: translateY(-230px);
   opacity: 0;
+  display: inline-block;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
 }
 
 #messageContainer {
-  line-height: 0;
   text-align: center;
   justify-content: center;
-  animation-name: enter;
-  animation-delay: 5s;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-  opacity: 0;
+  opacity: 1;
 }
 
 @keyframes enter {
   from {
     opacity: 0;
-    margin-top: 0;;
     font-size: 1px;
   }to{
     opacity: 1;
     font-size: 44px;
-    line-height: 44px;
-    margin-top: 15px;
+  }
+}
+
+@keyframes roundWinnerEnter {
+  from {
+    opacity: 0;
+    font-size: 1px;
+    
+  }to{
+    opacity: 1;
+    font-size: 40px;
+    
+  }
+}
+
+@keyframes gameMessageEnd {
+  from {
+    opacity: 0;
+    font-size: 1px;
+  }to{
+    opacity: 1;
+    font-size: 44px;
   }
 }
 
@@ -528,8 +544,8 @@ h4 {
   margin-bottom: 0;
   margin-top: 10px;
   animation-name: enter;
-  animation-delay: 750ms;
-  animation-duration: 500ms;
+  animation-delay: 1s;
+  animation-duration: 750ms;
   animation-fill-mode: forwards;
   opacity: 0;
 }
