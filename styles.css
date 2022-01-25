@@ -7,7 +7,7 @@ body {
   font-family:Arial, Helvetica, sans-serif;
   background: linear-gradient(180deg, rgba(0,0,0,1) 5%, rgba(173,173,173,1) 80%);
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 105vh;
 }
 
 h1 {
@@ -75,14 +75,27 @@ h1 {
   text-align: center;
   margin-bottom: 50px;
   margin-top: 50px;
+
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+@keyframes baitFadeOut {
+  from {
+    opacity: 1;
+  } to {
+    margin-top: 0;
+    margin-bottom: 0;
+    opacity: 0;
+  }
 }
 
 #baitPhrase {
   font-size: 36px;
   color: white;  
   animation-fill-mode: forwards;
-  animation-delay: 100ms;
-  animation-duration: 100ms;
+  animation-duration: 700ms;
   animation-name: bait;
   opacity: 0;
 }
@@ -106,10 +119,23 @@ h1 {
   }
 }
 
+@keyframes fadeOut {
+  from{
+    opacity: 1;
+    font-size: 36px;
+    line-height: 42px;
+  }to{
+    opacity: 0;
+    font-size: 1px;
+    line-height: 0px;
+    margin-top: 0;
+  }
+}
+
 #start {
   animation-fill-mode: forwards;
-  animation-delay: 100ms;
-  animation-duration: 100ms;
+
+  animation-duration: 700ms;
   animation-name: startBtnFade;
   animation-timing-function: ease-in;
   opacity: 0;
@@ -141,12 +167,10 @@ h1 {
 #flex-container{
   display: flex;
   width: fit-content;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px 20px;
   background-color: #d4d4d4;
   border-radius: 20px;
-  animation-duration: 1s;
-  animation-name: flexOpen;
 }
 
 #flex-box-game {
@@ -189,8 +213,6 @@ img {
   border-radius: 10px;
 }
 
-
-
 .rock {
   position: relative;
   z-index: 2;
@@ -218,7 +240,7 @@ img {
     height: 25vh;
   }to{
     opacity: 1;
-    transform: translateY(35vh);
+    transform: translate(-3vw, 35vh);
     height: 22vh;
   }
 }
@@ -228,7 +250,7 @@ img {
     height: 25vh;
   }to{
     opacity: 1;
-    transform: translate(23.8vw, 35vh);
+    transform: translate(27.8vw, 35vh);
     height: 22vh;
   }
 }
@@ -272,7 +294,6 @@ img {
   }
 } 
 
-
 .scissors {
   background-color: #f4f4f4;
   animation-duration: 750ms;
@@ -310,7 +331,7 @@ img {
     height: 25vh;
   }to{
     opacity: 1;
-    transform: translate(-23.8vw, 35vh);
+    transform: translate(-27.8vw, 35vh);
     height: 22vh;
   }
 }
@@ -320,7 +341,7 @@ img {
     height: 25vh;
   }to{
     opacity: 1;
-    transform: translateY(35vh);
+    transform: translate(3vw, 35vh);
     height: 22vh;
   }
 }
@@ -362,7 +383,7 @@ img {
     height: 25vh;
   }to{
     opacity: 1;
-    transform: translate(-12.9vw, 35vh);
+    transform: translate(-15.9vw, 35vh);
     height: 22vh;
   }
 }
@@ -372,12 +393,10 @@ img {
     height: 25vh;
   }to{
     opacity: 1;
-    transform: translate(11.9vw, 35vh);
+    transform: translate(14.9vw, 35vh);
     height: 22vh;
   }
 }
-
-
 
 #score-container {
   justify-content: center;
@@ -424,15 +443,13 @@ img {
     height: 52px;
   }to{
     width: 1200px;
-    height: 150px;
+    height: 100px;
   }
 } 
 
 h4 {
   font-size: 24px;
 }
-
-
 
 #playerScore {
   border: 2px solid black;
@@ -456,42 +473,65 @@ h4 {
 
 #gameMessage {
   text-align: center;
-  line-height: 36px;
+  line-height: 0;
+  font-size: 1px;
   color: rgb(173, 0, 0);
   font-weight: 900;
+  margin-bottom: 0;
+  animation-name: enter;
+  animation-delay: 5s;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  transform: translateY(130px);
+  opacity: 0;
+}
+
+#roundWinner {
+  font-size: 40px;
+  line-height: 50px;
+  margin-top: 10px;
   margin-bottom: 0;
   animation-name: enter;
   animation-delay: 750ms;
   animation-duration: 500ms;
   animation-fill-mode: forwards;
-  display: inline-block;
+  opacity: 0;
+}
+
+#messageContainer {
+  line-height: 0;
+  text-align: center;
+  justify-content: center;
+  animation-name: enter;
+  animation-delay: 5s;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
   opacity: 0;
 }
 
 @keyframes enter {
   from {
     opacity: 0;
+    margin-top: 0;;
     font-size: 1px;
-    transform: translateY(200px);
-  }
-
-  to {
+  }to{
     opacity: 1;
-    font-size: 36px;
-    transform: translateY(200px);
+    font-size: 44px;
+    line-height: 44px;
+    margin-top: 15px;
   }
-}
-
-#messageContainer {
-  display: flex;
-  justify-content: center;
 }
 
 #endScore {
   text-align: center;
-  font-size: 32px;
+  font-size: 44px;
   margin-bottom: 0;
   margin-top: 10px;
+  animation-name: enter;
+  animation-delay: 750ms;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
 
 button {

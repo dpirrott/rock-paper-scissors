@@ -71,6 +71,8 @@ function updateScore() {
     // Initiate transition
     messageContainer.replaceChild(blankNode, gameMessage);
     messageContainer.replaceChild(gameMessage, blankNode);
+
+    roundWinner.remove();
     if (playerScore > computerScore) {
       gameMessage.setAttribute('style', 'font-size: 32px; color: green;');
       gameMessage.innerText = "You won! :)";
@@ -121,7 +123,7 @@ function play(e) {
     computerSelect.src = rockImg.src;
     computerSelect.style.animationName = "rockComputer";
   } else if (computerChoiceLower === "scissors") {
-    computerSelect.src = scissorsImg.src;
+    computerSelect.src = "images/scissors (copy).png";
     computerSelect.style.animationName = "scissorsComputer";
   } else {
     computerSelect.src = paperImg.src;
@@ -133,6 +135,11 @@ function play(e) {
   gameMessage.removeAttribute('id');
   gameMessage.id = "gameMessage";
   gameMessage.style.animationDelay = "0s";
+  gameMessage.style.color = 'black'
+  gameMessage.style.textDecoration = "underline";
+  gameMessage.innerText = 'Round winner';
+  roundWinner.id = "roundWinner";
+  roundWinner.style.textDecoration = "none";
 
   playerChoice = playerChoice[0].toUpperCase() + playerChoice.slice(1, playerChoice.length);
 
@@ -140,23 +147,23 @@ function play(e) {
   messageContainer.replaceChild(blankNode, gameMessage);
   messageContainer.replaceChild(gameMessage, blankNode);
 
+  // Remove transition for game message if one iteration has passed
+  if (roundWinner.innerText !== "") roundWinner.remove();
+
   if (roundResult === 'won') {
-
     playerScore++;
-    gameMessage.style.color = 'green';
-    gameMessage.innerText = 'You chose ' + playerChoice + ", computer chose " + computerChoice + ', You won this round! :)';
-
+    roundWinner.innerText = '<== Player';
+    roundWinner.style.color = 'green';
   } else if (roundResult === 'lost') {
     computerScore++;
-    gameMessage.style.color = 'red';
-    gameMessage.innerText = 'You lost this round! :(';
+    roundWinner.innerText = 'Computer ==>';
+    roundWinner.style.color = 'red';
   } else {
-    gameMessage.style.color = 'tan';
-    gameMessage.innerText = 'You tied this round! :(';
+    roundWinner.style.color = "black";
+    roundWinner.innerText = '<== Tied ==>';
   }
-
+  messageContainer.appendChild(roundWinner);
   updateScore();
-
 }
 
 function shake(e) {
@@ -202,6 +209,12 @@ function setupGameLayout() {
   computerDisplayedScore = document.createElement('h4');
   resetBtn = document.createElement('button');
 
+  messageContainer.id = "messageContainer"
+  body.appendChild(messageContainer);
+  gameMessage.id = 'gameMessage';
+  gameMessage.innerText = 'Fight!';
+  messageContainer.appendChild(gameMessage);
+
   // Flex container setup
   flexContainer.id = "flex-container";
   body.insertBefore(flexContainer, messageContainer);
@@ -245,11 +258,16 @@ function setupGameLayout() {
   scores.appendChild(playerDisplayedScore);
   scores.appendChild(computerDisplayedScore);
 
+  
+
+  //Acount for message heights
+  
+  
 }
 
 function startGame() {
   
-  setTimeout(setupGameLayout, 1000) // set back to 10000
+  setTimeout(setupGameLayout, 10000) // set back to 10000
   let temp = startBtn.cloneNode()
   bait.removeChild(startBtn);
   startBtn = temp;
@@ -258,40 +276,59 @@ function startGame() {
   startBtn.style.animationName = "startBtnFadeOut";
   startBtn.innerText = "Start";
   bait.appendChild(startBtn);
+  baitPhrase.style.animationName = "baitBounceBack";
 
   setTimeout(() => { 
+    baitPhrase.style.animationName = "bait";
     baitPhrase.innerText = "Thank you!";
     bait.removeChild(startBtn);
+    console.log("Animation duration: " + baitPhrase.style.animationDuration);
+
     setTimeout(() => {
       baitPhrase.style.animationDelay = "0s";
       baitPhrase.style.animationDuration = "2s";
       baitPhrase.style.opacity = "1";
       baitPhrase.style.animationName = "baitBounceBack";
+      console.log("Animation duration: " + baitPhrase.style.animationDuration);
 
       epicStory.style.animationIterationCount = "1";
       epicStory.style.animationDuration = "2s";
       epicStory.style.animationName = "storyStartAgain";
 
       setTimeout(() => {
-        epicStory.innerText = "The worlds finest scientists have deemed\nthe following weapons our best hope.";
         epicStory.style.animationDuration = "2s";
         epicStory.style.animationName = "storyFinish";
+        epicStory.innerText = "The worlds finest scientists have deemed\nthe following weapons our best hope.";
+
         setTimeout(() => {
           epicStory.style.animationDuration = "3s";
           epicStory.style.animationName = "storyHide";
+
           setTimeout(() => {
-            baitPhrase.style.animationName = "bait";
-            baitPhrase.style.animationDuration = "1.5s";
+            baitPhrase.style.animationDuration = "1s";            
             baitPhrase.style.fontWeight = "900";
             baitPhrase.style.lineHeight = "42px";
             baitPhrase.style.fontSize = "42px"
+            baitPhrase.style.animationName = "bait";
             baitPhrase.innerText = "The Rock, Paper, Scissors...";
+            console.log("Animation duration: " + baitPhrase.animationDuration);
 
-          }, 400)// set 3000
-        }, 400) // set 2000
-      }, 400)// set to 2000
+            setTimeout(() => {
+              baitPhrase.style.animationDuration = "3s";
+              baitPhrase.style.animationName = "fadeOut";
+              baitPhrase.innerText = "Good luck!";
+
+              console.log("Animation duration: " + baitPhrase.style.animationDuration);
+              bait.style.animationName = "baitFadeOut";
+              setTimeout(() => {
+                baitPhrase.remove();
+              }, 3000);
+            }, 5000)
+          }, 3000)// set 3000
+        }, 2000) // set 2000
+      }, 2000)// set to 2000
     }, 700)
-  }, 300);
+  }, 700);
   
   
   // Initialize new/reset game
@@ -299,15 +336,13 @@ function startGame() {
   computerScore = 0;
   endScore.innerText = '';  
 
-  setTimeout(() => {
-    gameMessage.id = 'gameMessage';
-    gameMessage.innerText = 'Fight!';
-    messageContainer.appendChild(gameMessage);
-    messageContainer.style.marginTop = "15px";
+  setTimeout(() => {   
+    
     choices = document.querySelectorAll('.flex-item');
-  }, 1500)
+
+  }, 10500)
   
-  setTimeout(eventListenerSetup, 2000);
+  setTimeout(eventListenerSetup, 15000);
   
 }
 
@@ -322,7 +357,7 @@ let paperImg = document.createElement('img');
 let scissorsImg = document.createElement('img');
 let body = document.querySelector('body');
 let blankNode = document.createElement('p');
-let messageContainer = document.querySelector('#messageContainer');
+let messageContainer = document.createElement('div');
 let playerDisplayedScore;
 let computerDisplayedScore;
 let scoreContainer;
@@ -334,6 +369,7 @@ let baitPhrase = document.createElement('p');
 let epicStory = document.querySelector('.epicStory');
 let playerSelect = document.createElement('img');
 let computerSelect = document.createElement('img');
+let roundWinner = document.createElement('p');
 
 setTimeout(() => {
   epicStory.style.animationDelay = 0;
