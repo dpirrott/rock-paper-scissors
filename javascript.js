@@ -113,98 +113,102 @@ function updateScore() {
 }
 
 function play(e) {
-    //Prevent double triggers of event listeners by disabling them temporarily
-    choices.forEach(choice => {
-      choice.removeEventListener('click', play);
-    });
+  //Prevent double triggers of event listeners by disabling them temporarily
+  choices.forEach(choice => {
+    choice.removeEventListener('click', play);
+  });
 
-    let playerChoice = e.srcElement.id;
-    console.log(playerSelect.className);
-    if (playerSelect.className !== "") playerSelect.remove();
-    coordX = e.srcElement.getBoundingClientRect().x;
-    coordY = e.srcElement.getBoundingClientRect().y;
-    
-    playerSelect.style.top = coordY;
-    playerSelect.style.left = coordX
-    //Determine which image will be duplicated to player side
-    if (playerChoice === "rock") {
-      rockSound.play();
-      playerSelect.src = rockImg.src;
-      playerSelect.className = "rockPlay";    
-    } else if (playerChoice === "scissors") {
-      scissorsSound.play();
-      playerSelect.src = "images/scissors (copy).png";
-      playerSelect.className = "scissorsPlay";
-    }else{
-      paperSound.play();
-      playerSelect.src = paperImg.src;
-      playerSelect.className = "paperPlay";
-    }
-    e.srcElement.parentNode.appendChild(playerSelect);
-    
-    // Now computers choice img will be duplicated to its play area
-    let computerChoice = computerPlay();
-    let computerChoiceLower = computerChoice.toLowerCase();
-    let choiceImg = document.getElementById(computerChoiceLower);
-    coordX = choiceImg.getBoundingClientRect().x;
-    coordX = choiceImg.getBoundingClientRect().y;
+  let playerChoice = e.srcElement.id;
+  console.log(playerSelect.className);
+  if (playerSelect.className !== "") playerSelect.remove();
+  coordX = e.srcElement.getBoundingClientRect().x;
+  coordY = e.srcElement.getBoundingClientRect().y;
   
-    if (computerSelect.className !== "") computerSelect.remove();
-    computerSelect.style.left = coordX;
-    computerSelect.style.top = coordY;
-    computerSelect.className = "rockPlay";
-    if (computerChoiceLower === "rock") {
-      computerSelect.src = rockImg.src;
-      computerSelect.style.animationName = "rockComputer";
-    } else if (computerChoiceLower === "scissors") {
-      computerSelect.src = "images/scissors (copy).png";
-      computerSelect.style.animationName = "scissorsComputer";
-    } else {
-      computerSelect.src = paperImg.src;
-      computerSelect.style.animationName = "paperComputer";
-    }
-    choiceImg.parentNode.appendChild(computerSelect);
+  playerSelect.style.top = coordY;
+  playerSelect.style.left = coordX
+  //Determine which image will be duplicated to player side
+  if (playerChoice === "rock") {
+    rockSound.play();
+    playerSelect.src = rockImg.src;
+    playerSelect.className = "rockPlay";    
+  } else if (playerChoice === "scissors") {
+    scissorsSound.play();
+    playerSelect.src = "images/scissors (copy).png";
+    playerSelect.className = "scissorsPlay";
+  }else{
+    paperSound.play();
+    playerSelect.src = paperImg.src;
+    playerSelect.className = "paperPlay";
+  }
+  e.srcElement.parentNode.appendChild(playerSelect);
   
-    let roundResult = playRound(playerChoice, computerChoice);
-    gameMessage.removeAttribute('id');
-    gameMessage.id = "gameMessage";
-    gameMessage.style.animationDelay = "0s";
-    gameMessage.style.color = 'black'
-    gameMessage.style.textDecoration = "underline";
-    gameMessage.innerText = 'Round winner';
-    roundWinner.id = "roundWinner";
+  // Now computers choice img will be duplicated to its play area
+  let computerChoice = computerPlay();
+  let computerChoiceLower = computerChoice.toLowerCase();
+  let choiceImg = document.getElementById(computerChoiceLower);
+  coordX = choiceImg.getBoundingClientRect().x;
+  coordX = choiceImg.getBoundingClientRect().y;
+
+  if (computerSelect.className !== "") computerSelect.remove();
+  computerSelect.style.left = coordX;
+  computerSelect.style.top = coordY;
+  computerSelect.className = "rockPlay";
+  if (computerChoiceLower === "rock") {
+    computerSelect.src = rockImg.src;
+    computerSelect.style.animationName = "rockComputer";
+  } else if (computerChoiceLower === "scissors") {
+    computerSelect.src = "images/scissors (copy).png";
+    computerSelect.style.animationName = "scissorsComputer";
+  } else {
+    computerSelect.src = paperImg.src;
+    computerSelect.style.animationName = "paperComputer";
+  }
+  choiceImg.parentNode.appendChild(computerSelect);
+
+  let roundResult = playRound(playerChoice, computerChoice);
+  gameMessage.removeAttribute('id');
+  gameMessage.id = "gameMessage";
+  gameMessage.style.animationDelay = "0s";
+  gameMessage.style.color = 'black'
+  gameMessage.style.textDecoration = "underline";
+  gameMessage.innerText = 'Round winner';
+  roundWinner.id = "roundWinner";
+
+  playerChoice = playerChoice[0].toUpperCase() + playerChoice.slice(1, playerChoice.length);
+
+  // Initiate transition
+  messageContainer.replaceChild(blankNode, gameMessage);
+  messageContainer.replaceChild(gameMessage, blankNode);
+
+  // Remove transition for game message if one iteration has passed
+  // if (roundWinner.innerText !== "") roundWinner.remove();
+
+  if (roundResult === 'won') {
+    playerScore++;
+    roundWinner.innerText = '<== Player';
+    roundWinner.style.color = 'green';
+  } else if (roundResult === 'lost') {
+    computerScore++;
+    roundWinner.innerText = 'Computer ==>';
+    roundWinner.style.color = 'red';
+  } else {
+    roundWinner.style.color = "black";
+    roundWinner.innerText = '<== Tied ==>';
+  }
+  messageContainer.appendChild(roundWinner);
   
-    playerChoice = playerChoice[0].toUpperCase() + playerChoice.slice(1, playerChoice.length);
+  updateScore();
   
-    // Initiate transition
-    messageContainer.replaceChild(blankNode, gameMessage);
-    messageContainer.replaceChild(gameMessage, blankNode);
-  
-    // Remove transition for game message if one iteration has passed
-   // if (roundWinner.innerText !== "") roundWinner.remove();
-  
-    if (roundResult === 'won') {
-      playerScore++;
-      roundWinner.innerText = '<== Player';
-      roundWinner.style.color = 'green';
-    } else if (roundResult === 'lost') {
-      computerScore++;
-      roundWinner.innerText = 'Computer ==>';
-      roundWinner.style.color = 'red';
-    } else {
-      roundWinner.style.color = "black";
-      roundWinner.innerText = '<== Tied ==>';
-    }
-    messageContainer.appendChild(roundWinner);
-    
-    updateScore();
-    
+  if (playerScore < 5 && computerScore < 5) {
     //Reset the event listeners after transition completes
     setTimeout(() => {
       choices.forEach(choice => {
         choice.addEventListener('click', play);
       });
     }, 500);
+  }
+    
+    
   
 }
 
@@ -371,7 +375,7 @@ function startGame() {
 
               console.log("Animation duration: " + baitPhrase.style.animationDuration);
               bait.style.animationName = "baitFadeOut";
-              bait.style.animationDelay = "2s";
+              bait.style.animationDelay = "500ms";
               console.log(bait.style.animationName);
               setTimeout(() => {
                 baitPhrase.remove();
