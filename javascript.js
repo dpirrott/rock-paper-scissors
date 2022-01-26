@@ -368,18 +368,18 @@ function startGame() {
             console.log("Animation duration: " + baitPhrase.style.animationDuration);
 
             setTimeout(() => {
-              baitPhrase.style.animationDuration = "4s"; // set to 3s
-              baitPhrase.style.animationDelay = "2s";
+              baitPhrase.style.animationDuration = "3s"; // set to 3s
+              baitPhrase.style.animationDelay = "1.5s";
               baitPhrase.style.animationName = "fadeOut";
               baitPhrase.innerText = "Good luck!";
 
               console.log("Animation duration: " + baitPhrase.style.animationDuration);
               bait.style.animationName = "baitFadeOut";
-              bait.style.animationDelay = "500ms";
+              bait.style.animationDelay = "1.5s";
               console.log(bait.style.animationName);
               setTimeout(() => {
                 baitPhrase.remove();
-              }, 4000); // set to 3000
+              }, 4500); // set to 3000
             }, 5000)//set to 5000
           }, 3000)// set 3000
         }, 2000)// set 2000
