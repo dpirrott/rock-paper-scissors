@@ -76,7 +76,7 @@ h1 {
   margin-bottom: 50px;
   margin-top: 50px;
 
-  animation-duration: 3s;
+  animation-duration: 4s;
   animation-fill-mode: forwards;
   opacity: 1;
 }
@@ -133,8 +133,10 @@ h1 {
 }
 
 #start {
+  border: 3px solid black;
+  font-weight: 900;
+  background-color: seagreen;
   animation-fill-mode: forwards;
-
   animation-duration: 700ms;
   animation-name: startBtnFade;
   animation-timing-function: ease-in;
@@ -558,7 +560,10 @@ button {
 }
 
 #reset {
-
+  font-weight: 900;
+  background-color: #00367796;
+  border: 3px solid white;
+  color: white;
 }
 
 footer {
