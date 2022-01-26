@@ -99,7 +99,7 @@ function updateScore() {
     roundWinner.remove();
     gameMessage.style.transform = "translateY(-240px)";
     if (playerScore > computerScore) {
-      gameMessage.setAttribute('style', 'font-size: 32px; color: green; background-color: white; animation-delay: 1s; transform: translateY(-240px); display: inline-block; border-radius: 10px;');
+      gameMessage.setAttribute('style', 'font-size: 32px; color: green; background-color: white; animation-delay: 1s; transform: translateY(-240px); display: inline-block; padding: 5px 10px; border-radius: 10px;');
       gameMessage.innerText = "You won! :)\n" + playerScore + " - " + computerScore;
       rockTheme.play();
     } else {
@@ -310,7 +310,7 @@ function setupGameLayout() {
   messageContainer.id = "messageContainer"
   body.appendChild(messageContainer);
   gameMessage.id = 'gameMessage';
-  gameMessage.innerText = 'Fight!';
+  gameMessage.innerText = 'Fight!\nFirst to 5 wins';
   messageContainer.appendChild(gameMessage);
   
 }
@@ -361,18 +361,21 @@ function startGame() {
             baitPhrase.style.fontSize = "42px"
             baitPhrase.style.animationName = "bait";
             baitPhrase.innerText = "The Rock, Paper, Scissors...";
-            console.log("Animation duration: " + baitPhrase.animationDuration);
+            console.log("Animation duration: " + baitPhrase.style.animationDuration);
 
             setTimeout(() => {
-              baitPhrase.style.animationDuration = "3s"; // set to 3s
+              baitPhrase.style.animationDuration = "4s"; // set to 3s
+              baitPhrase.style.animationDelay = "2s";
               baitPhrase.style.animationName = "fadeOut";
               baitPhrase.innerText = "Good luck!";
 
               console.log("Animation duration: " + baitPhrase.style.animationDuration);
               bait.style.animationName = "baitFadeOut";
+              bait.style.animationDelay = "2s";
+              console.log(bait.style.animationName);
               setTimeout(() => {
                 baitPhrase.remove();
-              }, 3000); // set to 3000
+              }, 4000); // set to 3000
             }, 5000)//set to 5000
           }, 3000)// set 3000
         }, 2000)// set 2000
