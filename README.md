@@ -3,9 +3,9 @@
 Simple rock-paper-scissors game against computer for 5 rounds.
 
 ### References
-- Scissors Image - <a>clipart-library.com</a>
-- Paper Image - <a>officedepot.com</a>
-- The Rock Image - <a>jumanji.fandom.com</a>
+- Scissors Image - [clipart-library.com](clipart-library.com)
+- Paper Image - [officedepot.com](officedepot.com)
+- The Rock Image - [jumanji.fandom.com](jumanji.fandom.com)
 
-- Sound effects - <zapsplat.com>
-- The Rock's Theme song - <a>voicy.network/clips/CuqIWgmivEmym9ibnhAQ1A</a>
+- Sound effects - [zapsplat.com](zapsplat.com)
+- The Rock's Theme song - [voicy.network](voicy.network/clips/CuqIWgmivEmym9ibnhAQ1A)
